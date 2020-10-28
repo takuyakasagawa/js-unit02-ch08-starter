@@ -62,6 +62,14 @@ const signup = (params) => {
   })
 }
 
+// try {
+//  json()
+// } catch(e) {
+//   alert("データを取得出来ませんでした。");
+// } finally {
+//   成功時も例外発生時も必ず最後に呼び出される処理
+// }
+
 const onSubmit = async () => {
   await removeErrors()
   const emailInput = document.getElementById('email');
