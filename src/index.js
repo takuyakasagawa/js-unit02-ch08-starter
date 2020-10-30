@@ -60,15 +60,10 @@ const signup = (params) => {
       return Promise.reject(new Error('ユーザー登録失敗'))
     }
   })
+  .catch(err => {
+    alert ('データを取得出来ませんでした。');
+  });
 }
-
-// try {
-//  json()
-// } catch(e) {
-//   alert("データを取得出来ませんでした。");
-// } finally {
-//   成功時も例外発生時も必ず最後に呼び出される処理
-// }
 
 const onSubmit = async () => {
   await removeErrors()
