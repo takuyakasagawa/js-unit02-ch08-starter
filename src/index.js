@@ -60,9 +60,12 @@ const signup = (params) => {
       return Promise.reject(new Error('ユーザー登録失敗'))
     }
   })
-  .catch(err => {
-    alert ('データを取得出来ませんでした。');
-  });
+
+  try {
+    //何らかの処理
+  } catch(err) {
+    // 例外発生時の処理alert('')
+  }
 }
 
 const onSubmit = async () => {
