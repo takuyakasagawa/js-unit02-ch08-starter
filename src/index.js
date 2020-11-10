@@ -44,21 +44,22 @@ const addErrorMessage = (type, message) => {
 }
 
 const signup = (params) => {
-  try {//何らかの処理　バリデーションが成功しているか
-    fetch(`${endpoint}/signup`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json; charset=utf-8',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(params)
-    })
-    let result = await promise; 
-    let promise = new Promise((resolve, reject) => {
-      setTimeout(() => resolve, 200)
-    });
-    return Promise.reject(new Error('ユーザー登録失敗'));
-  } catch(err) {// 例外発生時の処理
+  async function f(){
+    try {//何らかの処理　バリデーションが成功しているか
+      await fetch(`${endpoint}/signup`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json; charset=utf-8',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params)
+      })
+      let promise = new Promise((resolve, reject) => {
+        setTimeout(() => resolve, 200)
+      });
+    } catch(err) {
+      return Promise.reject(new Error('ユーザー登録失敗'));
+    }
   }
 }
 // const json = res.json();
