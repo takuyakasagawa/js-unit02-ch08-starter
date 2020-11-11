@@ -43,25 +43,31 @@ const addErrorMessage = (type, message) => {
   input.insertAdjacentHTML('afterend', `<div class="invalid-feedback">${message}</div>`);
 }
 
-const signup = (params) => {
-  async function f(){
-    try {//何らかの処理　バリデーションが成功しているか
-      await fetch(`${endpoint}/signup`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json; charset=utf-8',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(params)
-      })
-      let promise = new Promise((resolve, reject) => {
-        setTimeout(() => resolve, 200)
-      });
-    } catch(err) {
-      return Promise.reject(new Error('ユーザー登録失敗'));
+const signup = async (params) => {
+  try {//何らかの処理　バリデーションが成功しているか
+    const res = await fetch(`${endpoint}/signup`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json; charset=utf-8',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params)
+    })
+    const json = res.json();
+    if (res.status === 200) { // 登録成功
+      return json
+    } else { // 登録失敗
+      return new Error('ユーザー登録失敗');
     }
+  } catch(err) {
+    if (Error.name === 'TyepError') {
+      return new Error('データを取得できませんでした。');
+    } else {
+      return;
+    } 
   }
 }
+
 // const json = res.json();
 // if (res.status === 200) { // 登録成功
 //   return json
