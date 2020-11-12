@@ -57,11 +57,17 @@ const signup = async (params) => {
     if (res.status === 200) { // 登録成功
       return json
     } else { // 登録失敗
-      return new Error('ユーザー登録失敗');
+      // ここはPromiseオブジェクトでエラーオブジェクトを返すのが良いです
+      // Async awaitはPromiseの書き換えなので、Promiseで返す値部分の書き換えはないので、Promiseのままです
+      return Promise.reject(new Error('ユーザー登録失敗'))
     }
   } catch(err) {
-    if (Error.name === 'TyepError') {
-      return new Error('データを取得できませんでした。');
+    // ErrorというClassを宣言しているわけではないので、呼び出す記述ではErrorは書けません
+    // 引数errには、何が値として入っていますか？
+    // ヒント: console.logで引数errを検証するとヒントが得られそうです
+    console.log(err.message);
+    if (err.name === 'TyepError') {
+      return Promise.reject(new Error('ユーザー登録失敗'))
     } else {
       return;
     } 
