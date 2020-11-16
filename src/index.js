@@ -66,10 +66,10 @@ const signup = async (params) => {
     // 引数errには、何が値として入っていますか？
     // ヒント: console.logで引数errを検証するとヒントが得られそうです
     console.log(err.message);
-    if (Error.name === 'TyepError') {
+    if (err.name === 'TyepError') { 
       return Promise.reject(new Error('データを取得出来ませんでした。'))
-    } else {
-      return Promise.reject(new Error('ユーザー登録成功!'))
+    } else {// ユーザー登録失敗と文字列で返すと、62行目と同じで区別がつきません。引数errに格納されたエラーメッセージを取得させましょう
+      return Promise.reject(new Error(err.message))
     } 
   }
 }
