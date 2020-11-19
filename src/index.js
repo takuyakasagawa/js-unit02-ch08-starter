@@ -62,14 +62,13 @@ const signup = async (params) => {
       return Promise.reject(new Error('ユーザー登録失敗'))
     }
   } catch(err) {
-    // ErrorというClassを宣言しているわけではないので、呼び出す記述ではErrorは書けません
     // 引数errには、何が値として入っていますか？
     // ヒント: console.logで引数errを検証するとヒントが得られそうです
     console.log(err.message);
-    if (err.name === 'TyepError') { 
+    if (err.name === 'TyepError') {
       return Promise.reject(new Error('データを取得出来ませんでした。'))
     } else {// ユーザー登録失敗と文字列で返すと、62行目と同じで区別がつきません。引数errに格納されたエラーメッセージを取得させましょう
-      return Promise.reject(new Error(err.message))
+      return Promise.reject(new Error(err.name))
     } 
   }
 }
