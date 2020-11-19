@@ -68,6 +68,7 @@ const signup = async (params) => {
     if (err.name === 'TyepError') {
       return Promise.reject(new Error('データを取得出来ませんでした。'))
     } else {// ユーザー登録失敗と文字列で返すと、62行目と同じで区別がつきません。引数errに格納されたエラーメッセージを取得させましょう
+      console.table(err);
       return Promise.reject(new Error(err.name))
     } 
   }
